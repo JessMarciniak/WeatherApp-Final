@@ -27,8 +27,6 @@ li {
   margin: 30px auto;
 }
 .weather-app {
-  max-width: 600 px;
-  margin: 30px auto;
   border-radius: 10px;
   border: 2px blue solid;
   padding: 20px;
@@ -36,8 +34,10 @@ li {
 .overview {
   margin-bottom: 20px;
 }
-.weather-temperature {
-  margin-right: 5px;
+.weather-temperature img {
+  margin-right: 10px;
+  height: 64px;
+  width: 64px;
 }
 .weather-temperature strong {
   font-size: 64px;
@@ -49,4 +49,18 @@ li {
   position: relative;
   font-size: 16px;
   top: -34px;
+}
+.float-left {
+  float: left;
+}
+
+.weather-data-current li {
+  color: red;
+  text-align: right;
+}
+
+.weather-data-current ul {
+  float: right;
+  margin: -100px -75.5%;
+  width: -1%;
 }
