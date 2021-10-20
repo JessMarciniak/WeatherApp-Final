@@ -22,7 +22,7 @@
           <div class="overview">
             <h1 id="city"></h1>
             <ul>
-              <li>Friday 05:00</li>
+              <li id="currentDate">Friday</li>
               <li id="description">Clear</li>
             </ul>
           </div>
@@ -52,7 +52,7 @@
                   <li>Humidity: <span id="humidity">73</span>%</li>
                   <li>
                     Wind: <span id="windSpeed">10</span>
-                    <span id="windSpeedUnits">mph/km</span>
+                    <span id="windSpeedUnits">km/h</span>
                   </li>
                   <li>High: <span id="highTemp">30</span>°</li>
                   <li>Low: <span id="lowTemp">15</span>°</li>
@@ -60,6 +60,7 @@
               </div>
             </div>
           </div>
+          <div>Last updated: <span id="lastUpdate">Today</span></div>
         </div>
         <small
           ><a
