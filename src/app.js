@@ -22,6 +22,39 @@ function formatDate(timestamp) {
 
   return `${day} ${hours}:${minutes}`;
 }
+
+function dateToday(timestamp) {
+  let today = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[today.getDay()];
+
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[today.getMonth()];
+  let currentDate = today.getDate();
+
+  return `${day}, ${month} ${currentDate}  `;
+}
 function displayTemperature(response) {
   console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
@@ -33,6 +66,7 @@ function displayTemperature(response) {
   let highTempElement = document.querySelector("#highTemp");
   let lowTempElement = document.querySelector("#lowTemp");
   let updateElement = document.querySelector("#lastUpdate");
+  let currentDateElement = document.querySelector("#currentDate");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -42,10 +76,12 @@ function displayTemperature(response) {
   highTempElement.innerHTML = Math.round(response.data.main.temp_max);
   lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
   updateElement.innerHTML = formatDate(response.data.dt * 1000);
+  currentDateElement.innerHTML = dateToday(response.data.dt * 1000);
 }
 
+let city = "New York";
 let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=New York&appid=${apiKey}&units=metric`;
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 console.log(apiUrl);
 
 axios.get(apiUrl).then(displayTemperature);
