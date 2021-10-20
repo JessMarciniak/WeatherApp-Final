@@ -56,7 +56,6 @@ function dateToday(timestamp) {
   return `${day}, ${month} ${currentDate}  `;
 }
 function displayTemperature(response) {
-  console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
@@ -67,6 +66,7 @@ function displayTemperature(response) {
   let lowTempElement = document.querySelector("#lowTemp");
   let updateElement = document.querySelector("#lastUpdate");
   let currentDateElement = document.querySelector("#currentDate");
+  let weatherIconElement = document.querySelector("#weatherIcon");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -77,9 +77,14 @@ function displayTemperature(response) {
   lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
   updateElement.innerHTML = formatDate(response.data.dt * 1000);
   currentDateElement.innerHTML = dateToday(response.data.dt * 1000);
+  weatherIconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-let city = "New York";
+let city = "Paris";
 let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 console.log(apiUrl);
