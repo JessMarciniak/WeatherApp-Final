@@ -19,12 +19,11 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let day = days[date.getDay()];
-
   return `${day} ${hours}:${minutes}`;
 }
 
-function dateToday(timestamp) {
-  let today = new Date();
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
   let days = [
     "Sunday",
     "Monday",
@@ -34,7 +33,7 @@ function dateToday(timestamp) {
     "Friday",
     "Saturday",
   ];
-  let day = days[today.getDay()];
+  let day = days[date.getDay()];
 
   let months = [
     "January",
@@ -50,8 +49,8 @@ function dateToday(timestamp) {
     "November",
     "December",
   ];
-  let month = months[today.getMonth()];
-  let currentDate = today.getDate();
+  let month = months[date.getMonth()];
+  let currentDate = date.getDate();
 
   return `${day}, ${month} ${currentDate}  `;
 }
@@ -76,17 +75,27 @@ function displayTemperature(response) {
   highTempElement.innerHTML = Math.round(response.data.main.temp_max);
   lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
   updateElement.innerHTML = formatDate(response.data.dt * 1000);
-  currentDateElement.innerHTML = dateToday(response.data.dt * 1000);
+  currentDateElement.innerHTML = formatDay(response.data.dt);
   weatherIconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   weatherIconElement.setAttribute("alt", response.data.weather[0].description);
 }
+function search(city) {
+  let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
 
-let city = "Paris";
-let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#cityInput");
+  search(cityInputElement.value);
+  console.log(cityInputElement.value);
+}
 
-axios.get(apiUrl).then(displayTemperature);
+let formElement = document.querySelector("#searchForm");
+formElement.addEventListener("submit", handleSubmit);
+
+search("New York");
