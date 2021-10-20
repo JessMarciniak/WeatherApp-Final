@@ -1,9 +1,10 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #cdead65e;
 }
 
 h1 {
-  color: red;
+  color: navy;
   font-size: 24px;
   line-height: 28px;
   font-weight: 100;
@@ -15,7 +16,7 @@ ul {
 }
 li {
   list-style: none;
-  color: blueviolet;
+  color: navy;
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -32,8 +33,16 @@ a {
 }
 .weather-app {
   border-radius: 10px;
-  border: 2px blue solid;
   padding: 20px;
+  border: 3px #ec6e4c3d solid;
+  background: linear-gradient(
+    113.5deg,
+    rgb(234, 234, 234) 22.3%,
+    rgb(201, 234, 211) 56.6%,
+    rgb(255, 180, 189) 90.9%
+  );
+  box-shadow: 7px 10px 20px 2px rgb(42 208 193 / 30%);
+  margin-bottom: 30px;
 }
 .overview {
   margin-bottom: 20px;
@@ -47,7 +56,7 @@ a {
   font-size: 64px;
   font-weight: 400;
   line-height: 1;
-  color: rgb(33, 33, 33);
+  color: navy;
 }
 
 .weather-temperature .units {
@@ -58,7 +67,7 @@ a {
 
 .weather-temperature .active {
   cursor: default;
-  color: black;
+  color: navy;
   text-decoration: none;
   font-size: 20px;
 }
@@ -71,6 +80,6 @@ a {
 }
 
 .weather-data-current li {
-  color: blueviolet;
+  color: navy;
   text-align: right;
 }

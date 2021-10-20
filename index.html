@@ -34,7 +34,7 @@
                 <input
                   type="submit"
                   value="search"
-                  class="btn btn-primary w-100"
+                  class="btn btn-secondary w-100"
                 />
               </div>
             </div>
@@ -72,7 +72,7 @@
                   <li>Humidity: <span id="humidity">73</span>%</li>
                   <li>
                     Wind: <span id="windSpeed">10</span>
-                    <span id="windSpeedUnits">km/h</span>
+                    <span id="windSpeedUnits">kph</span>
                   </li>
                   <li>High Temperature: <span id="highTemp">30</span>°</li>
                   <li>Low Temperature: <span id="lowTemp">15</span>°</li>
@@ -82,14 +82,17 @@
           </div>
           <div>Last updated: <span id="lastUpdate">Today</span></div>
         </div>
-        <small
-          ><a
-            href="https://github.com/JessMarciniak/WeatherAppFinal.git"
-            target="_blank"
-            >Open-source code</a
+        <div id="codedBy">
+          <small
+            ><a
+              href="https://github.com/JessMarciniak/WeatherAppFinal.git"
+              target="_blank"
+              id="gitHubLink"
+              >Open-source code</a
+            >
+            by Jessica Marciniak</small
           >
-          by Jessica Marciniak</small
-        >
+        </div>
       </div>
     </div>
     <script src="src/app.js"></script>
