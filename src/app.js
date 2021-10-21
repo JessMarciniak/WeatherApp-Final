@@ -66,7 +66,6 @@ function formatForecastDay(timestamp) {
 function displayForecast(response) {
   let forecast = response.data.daily;
   let weatherForecastElement = document.querySelector("#weatherForecast");
-
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
@@ -82,11 +81,11 @@ function displayForecast(response) {
         alt=""
         width="42"
       />
-      <div class="weather-forecast-temperatures">
+      <div class="weather-forecast-temperatures" id="forecastHigh">
         <span class="weather-forecast-temperature-max">${Math.round(
           forecastDay.temp.max
         )}°</span>
-        <span class="weather-forecast-temperature-min"> ${Math.round(
+        <span class="weather-forecast-temperature-min" id="forecastLow"> ${Math.round(
           forecastDay.temp.min
         )}°</span>
       </div>
@@ -96,12 +95,13 @@ function displayForecast(response) {
   });
   forecastHTML = forecastHTML + `</div`;
   weatherForecastElement.innerHTML = forecastHTML;
+  celsiusForecastHigh = Math.round(forecastDay.temp.max);
+  celsiusForecastLow = Math.round(forecastDay.temp.min);
+  console.log(forecastDay.temp);
 }
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -118,11 +118,15 @@ function displayTemperature(response) {
   let currentDateElement = document.querySelector("#currentDate");
   let weatherIconElement = document.querySelector("#weatherIcon");
   celsiusTemperature = response.data.main.temp;
+  celsiusTemperatureMax = response.data.main.temp_max;
+  celsiusTemperatureMin = response.data.main.temp_min;
+  celsiusFeelsLike = response.data.main.feels_like;
+  kilometerWindSpeed = response.data.wind.speed;
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
-  windSpeedElement.innerHTML = Math.round(response.data.wind.speed);
+  windSpeedElement.innerHTML = Math.round(response.data.wind.speed) + " km/h";
   feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
   highTempElement.innerHTML = Math.round(response.data.main.temp_max);
   lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
@@ -150,8 +154,20 @@ function displayFarenheitTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
+  let fahrenheitMax = (celsiusTemperatureMax * 9) / 5 + 32;
+  let fahrenheitMin = (celsiusTemperatureMin * 9) / 5 + 32;
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
+  let milesWindSpeed = kilometerWindSpeed / 0.62137119223;
+  let highTempElement = document.querySelector("#highTemp");
+  let lowTempElement = document.querySelector("#lowTemp");
   let temperatureElement = document.querySelector("#temperature");
+  let feelsLikeElement = document.querySelector("#feelsLike");
+  let windSpeedElement = document.querySelector("#windSpeed");
+  windSpeedElement.innerHTML = Math.round(milesWindSpeed) + " m/h";
+  feelsLikeElement.innerHTML = Math.round(fahrenheitFeelsLike);
+  highTempElement.innerHTML = Math.round(fahrenheitMax);
+  lowTempElement.innerHTML = Math.round(fahrenheitMin);
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
@@ -159,10 +175,28 @@ function displayCelsiusTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
+  let highTempElement = document.querySelector("#highTemp");
+  let lowTempElement = document.querySelector("#lowTemp");
   let temperatureElement = document.querySelector("#temperature");
+  let forecastHighElement = document.querySelector("#forecastHigh");
+  let forecastLowElement = document.querySelector("#forecastLow");
+  let feelsLikeElement = document.querySelector("#feelsLike");
+  let windSpeedElement = document.querySelector("#windSpeed");
+  windSpeedElement.innerHTML = Math.round(kilometerWindSpeed) + " km/h";
+  highTempElement.innerHTML = Math.round(celsiusTemperatureMax);
+  lowTempElement.innerHTML = Math.round(celsiusTemperatureMin);
+
+  feelsLikeElement.innerHTML = Math.round(celsiusFeelsLike);
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
-let celsiusTemperature = null;
+
+let celsiusTemperature,
+  celsiusTemperatureMax,
+  celsiusTemperatureMin,
+  celsiusForecastHigh,
+  celsiusForecastLow,
+  celsiusFeelsLike,
+  kilometerWindSpeed = null;
 
 search("Boston");
 

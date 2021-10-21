@@ -19,6 +19,11 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
+          <span>
+            <button id="myLocation">
+              <img src="images/location-icon.png" width="25" />
+            </button>
+          </span>
           <form id="searchForm" class="mb-3">
             <div class="row">
               <div class="col-9">
@@ -71,11 +76,10 @@
                   <li>Feels like: <span id="feelsLike"> 50</span>°</li>
                   <li>Humidity: <span id="humidity">73</span>%</li>
                   <li>
-                    Wind: <span id="windSpeed">10</span>
-                    <span id="windSpeedUnits">kph</span>
+                    Wind: <span class="wind-speed" id="windSpeed">10</span>
                   </li>
-                  <li>High Temperature: <span id="highTemp">30</span>°</li>
-                  <li>Low Temperature: <span id="lowTemp">15</span>°</li>
+                  <li>High Temp: <span id="highTemp">30</span>°</li>
+                  <li>Low Temp: <span id="lowTemp">15</span>°</li>
                 </ul>
               </div>
             </div>
