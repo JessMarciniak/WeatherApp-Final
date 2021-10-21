@@ -55,7 +55,7 @@ function formatDay(timestamp) {
   return `${day}, ${month} ${currentDate}  `;
 }
 
-function formatDay(timestamp) {
+function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -74,11 +74,11 @@ function displayForecast(response) {
         forecastHTML +
         `
     <div class="col-2">
-      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+      <div class="weather-forecast-date">${formatForecastDay(
+        forecastDay.dt
+      )}</div>
             <img
-        src="http://openweathermap.org/img/wn/${
-          forecastDay.weather[0].icon
-        }@2x.png"
+        src="images/${forecastDay.weather[0].icon}.png"
         alt=""
         width="42"
       />
@@ -104,6 +104,7 @@ function getForecast(coordinates) {
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
+
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -129,7 +130,7 @@ function displayTemperature(response) {
   currentDateElement.innerHTML = formatDay(response.data.dt);
   weatherIconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `images/${response.data.weather[0].icon}.png`
   );
   weatherIconElement.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
@@ -163,7 +164,7 @@ function displayCelsiusTemperature(event) {
 }
 let celsiusTemperature = null;
 
-search("New York");
+search("Boston");
 
 let formElement = document.querySelector("#searchForm");
 formElement.addEventListener("submit", handleSubmit);
