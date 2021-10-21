@@ -84,20 +84,19 @@ function displayForecast(response) {
       <div class="weather-forecast-temperatures" id="forecastHigh">
         <span class="weather-forecast-temperature-max">${Math.round(
           forecastDay.temp.max
-        )}°</span>
+        )}° /</span> 
         <span class="weather-forecast-temperature-min" id="forecastLow"> ${Math.round(
           forecastDay.temp.min
         )}°</span>
       </div>
     </div>
     `;
+      celsiusForecastHigh = forecastDay.temp.max;
+      celsiusForecastLow = forecastDay.temp.min;
     }
   });
   forecastHTML = forecastHTML + `</div`;
   weatherForecastElement.innerHTML = forecastHTML;
-  celsiusForecastHigh = Math.round(forecastDay.temp.max);
-  celsiusForecastLow = Math.round(forecastDay.temp.min);
-  console.log(forecastDay.temp);
 }
 function getForecast(coordinates) {
   let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
@@ -150,6 +149,22 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
+function currentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(showPosition);
+  function showPosition(position) {
+    console.log(position);
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    let apiKey = "fb57d65c8433d702c30132cfdf5708ba";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayTemperature);
+  }
+}
+
+let currentButton = document.querySelector("#myLocation");
+currentButton.addEventListener("click", currentLocation);
+
 function displayFarenheitTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
@@ -159,11 +174,17 @@ function displayFarenheitTemperature(event) {
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
   let milesWindSpeed = kilometerWindSpeed / 0.62137119223;
+  let fahrenheitForecastHigh = (celsiusForecastHigh * 9) / 5 + 32;
+  let fahrenheitForecastLow = (celsiusForecastLow * 9) / +32;
   let highTempElement = document.querySelector("#highTemp");
   let lowTempElement = document.querySelector("#lowTemp");
   let temperatureElement = document.querySelector("#temperature");
   let feelsLikeElement = document.querySelector("#feelsLike");
   let windSpeedElement = document.querySelector("#windSpeed");
+  let forecastHighElement = document.querySelector("#forecastHigh");
+  let forecastLowElement = document.querySelector("#forecastLow");
+  forecastHighElement.innerHTML = Math.round(fahrenheitForecastHigh);
+  forecastLowElement.innerHTML = Math.round(fahrenheitForecastLow);
   windSpeedElement.innerHTML = Math.round(milesWindSpeed) + " m/h";
   feelsLikeElement.innerHTML = Math.round(fahrenheitFeelsLike);
   highTempElement.innerHTML = Math.round(fahrenheitMax);
@@ -185,7 +206,8 @@ function displayCelsiusTemperature(event) {
   windSpeedElement.innerHTML = Math.round(kilometerWindSpeed) + " km/h";
   highTempElement.innerHTML = Math.round(celsiusTemperatureMax);
   lowTempElement.innerHTML = Math.round(celsiusTemperatureMin);
-
+  forecastHighElement.innerHTML = Math.round(celsiusForecastHigh);
+  forecastLowElement.innerHTML = Math.round(celsiusForecastLow);
   feelsLikeElement.innerHTML = Math.round(celsiusFeelsLike);
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
@@ -197,8 +219,6 @@ let celsiusTemperature,
   celsiusForecastLow,
   celsiusFeelsLike,
   kilometerWindSpeed = null;
-
-search("Boston");
 
 let formElement = document.querySelector("#searchForm");
 formElement.addEventListener("submit", handleSubmit);
