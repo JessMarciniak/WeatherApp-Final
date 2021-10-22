@@ -12,6 +12,10 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <title>What's Your Weather?</title>
   </head>
 
@@ -21,16 +25,6 @@
         <div class="weather-app">
           <form id="searchForm" class="mb-3">
             <div class="row">
-              <div class="col-8">
-                <input
-                  type="search"
-                  placeholder="Type a city or click the globe..."
-                  class="form-control"
-                  id="cityInput"
-                  autocomplete="off"
-                />
-              </div>
-
               <div class="col-3">
                 <input
                   type="submit"
@@ -38,26 +32,37 @@
                   class="btn btn-info w-100"
                 />
               </div>
+              <div class="col-8">
+                <input
+                  type="search"
+                  placeholder="Enter location or click the globe..."
+                  class="form-control"
+                  id="cityInput"
+                  autocomplete="off"
+                />
+              </div>
             </div>
           </form>
-          <div class="overview">
-            <h1 id="city">How's the weather there?</h1>
-            <ul>
-              <li id="currentDate"></li>
-              <li id="description"></li>
-            </ul>
+          <div class="row">
+            <div class="col-4">
+              <button class="current-location-button" id="myLocation">
+                <img src="images/globe-search-icon.png" />
+              </button>
+            </div>
+            <div class="col-5">
+              <div class="overview">
+                <h1 id="city">How's the weather there?</h1>
+                <ul>
+                  <li id="currentDate"></li>
+                  <li id="description"></li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-6">
               <div class="clearfix weather-temperature">
-                <button class="current-location-button" id="myLocation">
-                  <img
-                    src="images/globe-search-icon.png"
-                    alt=""
-                    id="weatherIcon"
-                    class="float-left"
-                  />
-                </button>
+                <img src="" alt="" class="float-left" id="weatherIcon" />
                 <div class="float-left">
                   <strong id="temperature"></strong
                   ><small
@@ -66,26 +71,30 @@
                       <a href="#" id="fahrenheitLink">F</a></span
                     ></small
                   >
+                  <div class="col20">
+              
+            </div>
+                  <div class="col-6 high-Low">
+                    <span id="highTemp"></span>
+                  </br>
+                    <span id="lowTemp"></span>
+                  </div>
                 </div>
+                
               </div>
             </div>
-
-            <div class="col-6">
-              <div class="weather-data-current">
+            <div class="weather-data-current float-right" id="weatherDataCurrent">
                 <ul>
                   <li><span id="feelsLike"></span></li>
-                  <li><span id="highTemp"></span></li>
-                  <li><span id="lowTemp"></span></li>
                   <li><span id="humidity"></span></li>
                   <li><span class="wind-speed" id="windSpeed"></span></li>
                 </ul>
               </div>
-            </div>
             <div class="weather-forecast" id="weatherForecast"></div>
           </div>
-          <div><span id="lastUpdate"></span></div>
+          <div class="last-update"><span id="lastUpdate" ></span></div>
         </div>
-        <div id="codedBy">
+        <div id="codedBy" class="coded-by">
           <small
             ><a
               href="https://github.com/JessMarciniak/WeatherApp-Final.git"
