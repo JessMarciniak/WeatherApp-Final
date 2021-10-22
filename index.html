@@ -19,22 +19,18 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
-          <span>
-            <button class="current-location-button" id="myLocation">
-              <img src="images/location-icon.png" width="25" />
-            </button>
-          </span>
           <form id="searchForm" class="mb-3">
             <div class="row">
-              <div class="col-9">
+              <div class="col-8">
                 <input
                   type="search"
-                  placeholder="Type a city..."
+                  placeholder="Type a city or click the globe..."
                   class="form-control"
                   id="cityInput"
                   autocomplete="off"
                 />
               </div>
+
               <div class="col-3">
                 <input
                   type="submit"
@@ -54,21 +50,20 @@
           <div class="row">
             <div class="col-6">
               <div class="clearfix weather-temperature">
-                <img
-                  src="images/globe-search-icon.png"
-                  alt=""
-                  id="weatherIcon"
-                  class="float-left"
-                />
+                <button class="current-location-button" id="myLocation">
+                  <img
+                    src="images/globe-search-icon.png"
+                    alt=""
+                    id="weatherIcon"
+                    class="float-left"
+                  />
+                </button>
                 <div class="float-left">
                   <strong id="temperature"></strong
                   ><small
                     ><span class="units"
-                      >°<a href="#" id="celsiusLink">C</a> | °<a
-                        href="#"
-                        id="fahrenheitLink"
-                        >F</a
-                      ></span
+                      ><a href="#" id="celsiusLink">C</a> |
+                      <a href="#" id="fahrenheitLink">F</a></span
                     ></small
                   >
                 </div>
@@ -78,19 +73,17 @@
             <div class="col-6">
               <div class="weather-data-current">
                 <ul>
-                  <li>Feels like: <span id="feelsLike"> 50</span>°</li>
-                  <li>Humidity: <span id="humidity">73</span>%</li>
-                  <li>
-                    Wind: <span class="wind-speed" id="windSpeed">10</span>
-                  </li>
-                  <li>High Temp: <span id="highTemp">30</span>°</li>
-                  <li>Low Temp: <span id="lowTemp">15</span>°</li>
+                  <li><span id="feelsLike"></span></li>
+                  <li><span id="highTemp"></span></li>
+                  <li><span id="lowTemp"></span></li>
+                  <li><span id="humidity"></span></li>
+                  <li><span class="wind-speed" id="windSpeed"></span></li>
                 </ul>
               </div>
             </div>
             <div class="weather-forecast" id="weatherForecast"></div>
           </div>
-          <div>Last updated: <span id="lastUpdate">Today</span></div>
+          <div><span id="lastUpdate"></span></div>
         </div>
         <div id="codedBy">
           <small

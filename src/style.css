@@ -39,12 +39,7 @@ button {
   border-radius: 10px;
   padding: 20px;
   border: 3px #ec6e4c3d solid;
-  background: linear-gradient(
-    113.5deg,
-    rgb(234, 234, 234) 22.3%,
-    rgb(201, 234, 211) 56.6%,
-    rgb(255, 180, 189) 90.9%
-  );
+  background: #efefef;
   box-shadow: 7px 10px 20px 2px rgb(42 208 193 / 30%);
   margin-bottom: 30px;
 }
@@ -109,8 +104,4 @@ button {
 
 .weather-forecast-temperatures {
   font-size: 13px;
-}
-
-.wind-speed {
-  text-transform: lowercase;
 }

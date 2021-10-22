@@ -8,6 +8,10 @@ function formatDate(timestamp) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+  let seconds = date.getSeconds();
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
 
   let days = [
     "Sunday",
@@ -19,7 +23,7 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let day = days[date.getDay()];
-  return `${day} ${hours}:${minutes}`;
+  return `${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function formatDay(timestamp) {
@@ -59,7 +63,6 @@ function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   return days[day];
 }
 
@@ -121,15 +124,20 @@ function displayTemperature(response) {
   celsiusTemperatureMin = response.data.main.temp_min;
   celsiusFeelsLike = response.data.main.feels_like;
   kilometerWindSpeed = response.data.wind.speed;
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  temperatureElement.innerHTML = Math.round(response.data.main.temp) + "°";
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
-  humidityElement.innerHTML = response.data.main.humidity;
-  windSpeedElement.innerHTML = Math.round(response.data.wind.speed) + " km/h";
-  feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
-  highTempElement.innerHTML = Math.round(response.data.main.temp_max);
-  lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
-  updateElement.innerHTML = formatDate(response.data.dt * 1000);
+  humidityElement.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+  windSpeedElement.innerHTML =
+    "Wind: " + Math.round(response.data.wind.speed) + " km/h";
+  feelsLikeElement.innerHTML =
+    "Feels Like:" + Math.round(response.data.main.feels_like) + "°";
+  highTempElement.innerHTML =
+    "High Temp:" + Math.round(response.data.main.temp_max) + "°";
+  lowTempElement.innerHTML =
+    "Low Temp:" + Math.round(response.data.main.temp_min) + "°";
+  updateElement.innerHTML =
+    "Last Updated: " + formatDate(response.data.dt * 1000);
   currentDateElement.innerHTML = formatDay(response.data.dt);
   weatherIconElement.setAttribute(
     "src",
@@ -146,7 +154,15 @@ function search(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#cityInput");
+  if (cityInput.value > 0) {
+    cityInput.value.toLowerCase();
+    cityInput.value.trim();
+  } else {
+    let cityElement = document.querySelector("#city");
+    cityElement.innerHTML = "Enter a city above...";
+  }
   search(cityInputElement.value);
+  cityInput.reset();
 }
 
 function currentLocation(event) {
@@ -183,13 +199,16 @@ function displayFarenheitTemperature(event) {
   let windSpeedElement = document.querySelector("#windSpeed");
   let forecastHighElement = document.querySelector("#forecastHigh");
   let forecastLowElement = document.querySelector("#forecastLow");
-  forecastHighElement.innerHTML = Math.round(fahrenheitForecastHigh);
-  forecastLowElement.innerHTML = Math.round(fahrenheitForecastLow);
-  windSpeedElement.innerHTML = Math.round(milesWindSpeed) + " m/h";
-  feelsLikeElement.innerHTML = Math.round(fahrenheitFeelsLike);
-  highTempElement.innerHTML = Math.round(fahrenheitMax);
-  lowTempElement.innerHTML = Math.round(fahrenheitMin);
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  forecastHighElement.innerHTML =
+    "High Temp: " + Math.round(fahrenheitForecastHigh) + "°";
+  forecastLowElement.innerHTML =
+    "Low Temp: " + Math.round(fahrenheitForecastLow) + "°";
+  windSpeedElement.innerHTML = "Wind: " + Math.round(milesWindSpeed) + " m/h";
+  feelsLikeElement.innerHTML =
+    "Feels Like: " + Math.round(fahrenheitFeelsLike) + "°";
+  highTempElement.innerHTML = "High Temp: " + Math.round(fahrenheitMax) + "°";
+  lowTempElement.innerHTML = "Low Temp: " + Math.round(fahrenheitMin) + "°";
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature) + "°";
 }
 
 function displayCelsiusTemperature(event) {
@@ -203,13 +222,17 @@ function displayCelsiusTemperature(event) {
   let forecastLowElement = document.querySelector("#forecastLow");
   let feelsLikeElement = document.querySelector("#feelsLike");
   let windSpeedElement = document.querySelector("#windSpeed");
-  windSpeedElement.innerHTML = Math.round(kilometerWindSpeed) + " km/h";
-  highTempElement.innerHTML = Math.round(celsiusTemperatureMax);
-  lowTempElement.innerHTML = Math.round(celsiusTemperatureMin);
-  forecastHighElement.innerHTML = Math.round(celsiusForecastHigh);
-  forecastLowElement.innerHTML = Math.round(celsiusForecastLow);
-  feelsLikeElement.innerHTML = Math.round(celsiusFeelsLike);
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  windSpeedElement.innerHTML =
+    "Wind: " + Math.round(kilometerWindSpeed) + " km/h";
+  highTempElement.innerHTML =
+    "High Temp: " + Math.round(celsiusTemperatureMax) + "°";
+  lowTempElement.innerHTML =
+    "Low Temp: " + Math.round(celsiusTemperatureMin) + "°";
+  forecastHighElement.innerHTML = Math.round(celsiusForecastHigh) + "°";
+  forecastLowElement.innerHTML = Math.round(celsiusForecastLow) + "°";
+  feelsLikeElement.innerHTML =
+    "Feels Like: " + Math.round(celsiusFeelsLike) + "°";
+  temperatureElement.innerHTML = Math.round(celsiusTemperature) + "°";
 }
 
 let celsiusTemperature,
